@@ -1,0 +1,75 @@
+/* ---------- Theme ---------- */
+:root {
+  --green: #00ff41;
+  --bg: #000;
+  --panel: #0b120d;
+  --border: #1d3a24;
+  --text: #b8ffc8;
+}
+
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background: var(--bg);
+  color: var(--text);
+  font: 14px/1.4 ui-monospace, Consolas, monospace;
+}
+
+h1 { color: var(--green); font-size: 20px; margin: 16px 16px 8px; letter-spacing: 2px; }
+
+/* ---------- Control bars ---------- */
+.bar {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px 18px;
+  align-items: center;
+  justify-content: center;
+  margin: 0 16px 8px;
+  padding: 10px 16px;
+  background: var(--panel);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+}
+
+label { display: flex; align-items: center; gap: 6px; }
+
+button, .file, select {
+  padding: 7px 14px;
+  background: #0f2a16;
+  color: var(--green);
+  border: 1px solid var(--green);
+  border-radius: 6px;
+  font: inherit;
+  cursor: pointer;
+}
+select { padding: 5px 8px; }
+button:hover, .file:hover, select:hover,
+button:focus-visible, .file:focus-within, select:focus-visible { background: #174a25; outline: none; }
+button:disabled { opacity: .4; cursor: default; }
+
+/* hidden file input; the label around it is the visible button */
+.file input { position: absolute; width: 1px; height: 1px; opacity: 0; }
+
+input[type=range] { width: 110px; accent-color: var(--green); }
+input[type=checkbox] { accent-color: var(--green); }
+
+#rec.on { background: #5a0b0b; border-color: #ff4141; color: #ffb3b3; }
+
+/* ---------- Output ---------- */
+#out {
+  margin: 8px 16px 16px;
+  max-width: calc(100% - 32px);
+  max-height: 75vh;
+  background: #000;
+  border: 1px solid var(--border);
+}
+
+#status { margin: 0 16px 16px; opacity: .75; text-align: center; }
+
+/* kept rendering but invisible: some browsers stop decoding display:none video */
+video { position: absolute; width: 1px; height: 1px; opacity: 0; pointer-events: none; }

@@ -3,43 +3,38 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Matrix ASCII Filter</title>
-<style>
-  :root { --green: #00ff41; --bg: #000; --panel: #0b120d; --text: #b8ffc8; }
-  * { box-sizing: border-box; }
-  body { margin: 0; background: var(--bg); color: var(--text); font: 14px/1.4 ui-monospace, Consolas, monospace;
-         min-height: 100vh; display: flex; flex-direction: column; align-items: center; }
-  h1 { color: var(--green); font-size: 20px; margin: 16px 16px 8px; letter-spacing: 2px; }
-  .bar { display: flex; flex-wrap: wrap; gap: 12px 18px; align-items: center; justify-content: center;
-         padding: 10px 16px; margin: 0 16px; background: var(--panel); border: 1px solid #1d3a24; border-radius: 8px; }
-  button, .file { background: #0f2a16; color: var(--green); border: 1px solid var(--green); border-radius: 6px;
-                  padding: 7px 14px; font: inherit; cursor: pointer; }
-  button:hover, .file:hover, button:focus-visible, .file:focus-within { background: #174a25; outline: none; }
-  button:disabled { opacity: .4; cursor: default; }
-  .file input { position: absolute; width: 1px; height: 1px; opacity: 0; }
-  label { display: flex; align-items: center; gap: 6px; }
-  input[type=range] { accent-color: var(--green); width: 110px; }
-  input[type=checkbox] { accent-color: var(--green); }
-  #rec.on { background: #5a0b0b; border-color: #ff4141; color: #ffb3b3; }
-  #out { margin: 16px; max-width: calc(100% - 32px); max-height: 75vh; border: 1px solid #1d3a24; background: #000; }
-  #status { margin: 0 16px 16px; opacity: .75; text-align: center; }
-  /* kept rendering but invisible: some browsers stop decoding display:none video */
-  video { position: absolute; width: 1px; height: 1px; opacity: 0; pointer-events: none; }
-</style>
+<title>Matrixii</title>
+<link rel="stylesheet" href="css/style.css">
 </head>
 <body>
-  <h1>MATRIX ASCII FILTER</h1>
+  <h1>MATRIXII</h1>
+
+  <!-- Source: where the video comes from -->
   <div class="bar">
     <button id="cam">Use webcam</button>
     <label class="file">Upload video<input id="file" type="file" accept="video/*"></label>
-    <label>Cell size <input id="size" type="range" min="6" max="24" value="10"></label>
-    <label>Rain <input id="rain" type="range" min="0" max="100" value="60"></label>
-    <label><input id="color" type="checkbox"> Original colors</label>
     <button id="rec" disabled>Record</button>
   </div>
+
+  <!-- Look: how the filter draws it -->
+  <div class="bar">
+    <label>Style <select id="style"></select></label>
+    <label>Cell size <input id="size" type="range" min="6" max="24" value="10"></label>
+    <label>Rain <input id="rain" type="range" min="0" max="100" value="40"></label>
+    <label>Contrast <input id="contrast" type="range" min="50" max="300" value="150"></label>
+    <label><input id="invert" type="checkbox"> Invert</label>
+    <label><input id="color" type="checkbox"> Original colors</label>
+  </div>
+
   <canvas id="out" width="1280" height="720"></canvas>
   <div id="status">Pick a webcam or a video file. Everything runs on your computer; nothing is uploaded.</div>
   <video id="video" playsinline></video>
-  <script src="matrix.js"></script>
+
+  <!-- Plain scripts (not modules) so the page also works when opened straight from disk. Order matters. -->
+  <script src="js/styles.js"></script>
+  <script src="js/filter.js"></script>
+  <script src="js/sources.js"></script>
+  <script src="js/recorder.js"></script>
+  <script src="js/app.js"></script>
 </body>
 </html>
