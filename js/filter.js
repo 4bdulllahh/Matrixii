@@ -73,7 +73,7 @@ function drawFrame(out, video, s) {
       const boost = rainBoost(c, r, trail);
       // rain = 0: plain ASCII video; rain = 1: the image only shows inside falling trails
       const v = Math.min(1, brightness(px[i], px[i + 1], px[i + 2], s.invert, s.contrast) * (1 - rain + rain * boost * 1.6));
-      if (v < 0.04) continue;
+      if (v < 0.06) continue;
 
       const head = rain > 0 && boost > 1 - 1 / trail;
       let ch;
@@ -87,7 +87,8 @@ function drawFrame(out, video, s) {
 
       const f = head && !style.ramp ? '#eaffea' : s.color ? `rgb(${R},${G},${B})` : style.color;
       if (f !== fill) ctx.fillStyle = fill = f;
-      ctx.globalAlpha = style.ramp ? 1 : v;
+      // square root lifts mid-tones (faces, skin) that thin glyphs would otherwise render too faint
+      ctx.globalAlpha = style.ramp ? 1 : Math.sqrt(v);
       ctx.fillText(ch, c * cell + cell / 2, r * cell + cell / 2);
     }
   }
